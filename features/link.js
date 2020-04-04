@@ -218,6 +218,17 @@ function messageReceived(message) {
 		if (message.content === "account") {
 			checkUserAccount(message.author);
 		}
+	} else {
+		if (message.content.match(new RegExp('^!?raid$', 'i'))) {
+			var role = message.guild.roles.find("name", "raid-alert");
+			if (message.member.roles.has(role.id)) {
+				message.member.removeRole(role);
+				message.reply("you've been removed from the raid-alert role.");
+			} else {
+				message.member.addRole(role);
+				message.reply("you've been added to the raid-alert role.");
+			}
+		}
 	}
 }
 
